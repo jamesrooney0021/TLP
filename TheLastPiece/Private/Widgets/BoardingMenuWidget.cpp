@@ -52,7 +52,14 @@ bool UBoardingMenuWidget::Initialize() {
 	bool success = Super::Initialize();
 
 	if (ensure(BoardingMusic != nullptr)) {
-		UGameplayStatics::PlaySound2D(GetWorld(), BoardingMusic);
+		bool playMusic = true;
+		#if WITH_EDITOR
+			playMusic = false;
+		#endif
+		if (playMusic) {
+			UGameplayStatics::PlaySound2D(GetWorld(), BoardingMusic);
+		}
+			
 	}
 
 	if (!success) {
